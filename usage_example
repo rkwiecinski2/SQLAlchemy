@@ -1,0 +1,132 @@
+from sqlalchemy import create_engine
+
+
+engine = create_engine('sqlite:///heroes.db')
+connection = engine.connect()
+
+query = " SELECT * FROM users "
+
+results = connection.execute(query)
+
+results
+
+results.fetchall()
+
+from sqlalchemy import *
+
+metadata = MetaData()
+
+
+heroestable = Table('heroes', metadata, 
+                   Column('hero_id', Integer, nullable=False, primary_key=True),
+                   Column('name', String(20), nullable=False, unique=True)
+                   )
+
+from sqlalchemy.sql import select
+
+query = select([heroestable])
+
+print(query)
+
+results = connection.execute(query)
+
+results.fetchall()
+
+heroestable.columns.hero_id
+
+heroestable.c.hero_id
+
+expression = heroestable.c.hero_id > 5
+
+print(expression)
+
+expression.compile().params
+
+expression.compile()
+
+heroestable.columns.hero_id
+
+heroestable.c.hero_id
+
+expression = heroestable.c.hero_id > 5
+
+print(expression)
+
+expression.compile().params
+
+expression.compile()
+
+
+query = select([heroestable.c.name])
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).limit(5)
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).offset(5)  
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).order_by(heroestable.c.name.desc()) 
+results = connection.execute(query)
+results.fetchall()
+
+
+
+query = select([heroestable]).order_by(heroestable.c.hero_id.desc()).offset(5).limit(5) 
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).where(heroestable.c.hero_id > 5)
+results = connection.execute(query)
+
+results.fetchall()
+
+query = select([heroestable]).where((heroestable.c.hero_id > 5) & (heroestable.c.hero_id <10))
+results = connection.execute(query)
+
+results.fetchall()
+
+query = select([heroestable]).where(and_(heroestable.c.hero_id > 5, heroestable.c.hero_id <10))
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).where((heroestable.c.hero_id > 5) | (heroestable.c.hero_id <10))
+results = connection.execute(query)
+results.fetchall()
+
+
+heroestable.columns.hero_id
+
+heroestable.c.hero_id
+
+expression = heroestable.c.hero_id > 5
+
+print(expression)
+
+expression.compile().params
+
+expression.compile()
+
+
+query = select([heroestable.c.name])
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).limit(5)
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).offset(5)  
+results = connection.execute(query)
+results.fetchall()
+
+query = select([heroestable]).order_by(heroestable.c.name.desc()) 
+results = connection.execute(query)
+results.fetchall()
+
+
+
+
