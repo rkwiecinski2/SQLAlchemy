@@ -123,9 +123,11 @@ query = select([heroestable]).offset(5)
 results = connection.execute(query)
 results.fetchall()
 
+
 query = select([heroestable]).order_by(heroestable.c.name.desc()) 
 results = connection.execute(query)
 results.fetchall()
+
 
 
 
